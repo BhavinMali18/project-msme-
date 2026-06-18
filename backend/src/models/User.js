@@ -35,6 +35,27 @@ const userSchema = new mongoose.Schema(
       default: "company",
     },
 
+    category: {
+      type: String,
+      enum: ["student", "university", "startup_individual"],
+    },
+    institutionName: String,
+    teamName: String,
+    teamSize: Number,
+    projectTitle: String,
+    projectDescription: String,
+    stage: String,
+    coordinatorName: String,
+    pitchDeckUrl: String,
+    githubUrl: String,
+    demoVideoUrl: String,
+
+    approvalStatus: {
+      type: String,
+      enum: ["pending", "approved", "rejected"],
+      default: "pending",
+    },
+
     language: {
       type: String,
       default: "en",

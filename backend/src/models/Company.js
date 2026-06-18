@@ -14,6 +14,11 @@ const companySchema = new mongoose.Schema(
     pinCode: String,
     contactPerson: String,
     phone: String,
+    approvalStatus: {
+      type: String,
+      enum: ["pending", "approved", "rejected"],
+      default: "pending",
+    },
   },
   {
     timestamps: true,

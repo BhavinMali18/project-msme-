@@ -22,6 +22,10 @@ app.use(
   "/api/setup",
   require("./routes/setupRoutes")
 );
+app.use(
+  "/api/admin",
+  require("./routes/adminRoutes")
+);
 
 app.get("/", (req, res) => {
   res.json({

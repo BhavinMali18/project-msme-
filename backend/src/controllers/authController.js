@@ -186,12 +186,23 @@ exports.registerEmployee = async (req, res) => {
       name,
       email,
       password,
-      companyName
+      companyName,
+      category,
+      institutionName,
+      teamName,
+      teamSize,
+      projectTitle,
+      projectDescription,
+      stage,
+      coordinatorName,
+      pitchDeckUrl,
+      githubUrl,
+      demoVideoUrl
     } = req.body;
 
-    if (!name || !email || !password || !companyName) {
+    if (!name || !email || !password || (!companyName && !category)) {
       return res.status(400).json({
-        message: "All fields are required"
+        message: "Required fields are missing (Name, Email, Password, and Category/Company Name)"
       });
     }
 
@@ -209,8 +220,19 @@ exports.registerEmployee = async (req, res) => {
       name,
       email,
       password: hash,
-      companyName,
-      role: "participant"
+      companyName: companyName || institutionName || teamName || name,
+      role: "participant",
+      category,
+      institutionName,
+      teamName,
+      teamSize,
+      projectTitle,
+      projectDescription,
+      stage,
+      coordinatorName,
+      pitchDeckUrl,
+      githubUrl,
+      demoVideoUrl
     });
 
     const token = jwt.sign(
@@ -272,5 +294,21 @@ exports.login = async (req, res) => {
     res.status(500).json({
       message: err.message
     });
+  }
+};
+
+exports.updateProfile = async (req, res) => {
+  try {
+    const { userId, ...updates } = req.body;
+    if (!userId) {
+      return res.status(400).json({ message: "userId is required" });
+    }
+    const user = await User.findByIdAndUpdate(userId, updates, { new: true });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json({ user });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
