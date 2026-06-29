@@ -21,8 +21,8 @@ const registerSchema = z.object({
   state: z.string().min(2, "State is required"),
   password: z.string().min(6, "Password must be at least 6 characters"),
   confirmPassword: z.string().min(6, "Confirm password is required"),
-  acceptTerms: z.literal(true, {
-    errorMap: () => ({ message: "You must accept the terms and conditions" })
+  acceptTerms: z.boolean().refine(val => val === true, {
+    message: "You must accept the terms and conditions"
   }),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",

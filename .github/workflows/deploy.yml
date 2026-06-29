@@ -1,0 +1,56 @@
+name: Deploy to Hostinger VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOSTINGER_HOST }}
+          username: ${{ secrets.HOSTINGER_USERNAME }}
+          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          script: |
+            cd /var/www/project-msme
+            
+            # Pull latest changes from git
+            git pull origin main
+            
+            # 1. Build Backend
+            cd backend
+            npm install
+            pm2 restart backend || pm2 start src/server.js --name backend
+            cd ..
+            
+            # 2. Build MSME Portal
+            cd msme-portal
+            npm install
+            npm run build
+            # Assuming Nginx serves from /var/www/project-msme/msme-portal/dist
+            cd ..
+            
+            # 3. Build Participant Portal
+            cd participante-portal
+            npm install
+            npm run build
+            pm2 restart participant-portal || pm2 start npm --name participant-portal -- start
+            cd ..
+            
+            # 4. Build Admin Portal
+            cd ADMIN
+            npm install
+            npm run build
+            # Assuming Nginx serves from /var/www/project-msme/ADMIN/dist
+            cd ..
+            
+            # Save PM2 configuration
+            pm2 save
