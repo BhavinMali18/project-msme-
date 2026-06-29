@@ -31,24 +31,33 @@ const userSchema = new mongoose.Schema(
 
     role: {
       type: String,
-      enum: ["company", "participant"],
-      default: "company",
+      enum: ["company", "participant", "mentor", "evaluator", "admin", "superadmin", "dept_head"],
+      default: "participant",
+    },
+
+    // Dept head specific
+    department: { type: String },
+    departments: [{ type: String }],
+    isHead: { type: Boolean, default: false },
+    tempPassword: { type: String }, // Shown once after creation, cleared on first login
+
+    roleId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Role"
     },
 
     category: {
       type: String,
-      enum: ["student", "university", "startup_individual"],
     },
-    institutionName: String,
-    teamName: String,
-    teamSize: Number,
-    projectTitle: String,
-    projectDescription: String,
-    stage: String,
-    coordinatorName: String,
-    pitchDeckUrl: String,
-    githubUrl: String,
-    demoVideoUrl: String,
+
+    teamId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Team"
+    },
+
+    college: String,
+    linkedinUrl: String,
+    resumeUrl: String,
 
     approvalStatus: {
       type: String,

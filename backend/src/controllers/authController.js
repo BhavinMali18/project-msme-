@@ -182,36 +182,46 @@ exports.register = async (req, res) => {
 
 exports.registerEmployee = async (req, res) => {
   try {
-    const {
-      name,
-      email,
-      password,
-      companyName,
-      category,
-      institutionName,
-      teamName,
-      teamSize,
-      projectTitle,
-      projectDescription,
-      stage,
-      coordinatorName,
-      pitchDeckUrl,
-      githubUrl,
-      demoVideoUrl
-    } = req.body;
+    const { name, email, password, companyName, companyId, role } = req.body;
 
-    if (!name || !email || !password || (!companyName && !category)) {
-      return res.status(400).json({
-        message: "Required fields are missing (Name, Email, Password, and Category/Company Name)"
-      });
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "Required fields are missing" });
     }
 
-    // Check if email already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({
-        message: "Email is already registered"
-      });
+      return res.status(400).json({ message: "Email is already registered" });
+    }
+
+    const hash = await bcrypt.hash(password, 10);
+    const user = await User.create({
+      name,
+      email,
+      password: hash,
+      companyName,
+      companyId: companyId || undefined,
+      role: "participant"  // employees are always participants in the assessment system
+    });
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+
+    res.status(201).json({ token, user });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+exports.registerParticipant = async (req, res) => {
+  try {
+    const { 
+      name, email, phone, password, category,
+      institutionName, // Legacy, ignore or save to college
+      teamName, // Ignored, handled in Team model now
+    } = req.body;
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already registered" });
     }
 
     const hash = await bcrypt.hash(password, 10);
@@ -219,36 +229,28 @@ exports.registerEmployee = async (req, res) => {
     const user = await User.create({
       name,
       email,
+      phone,
       password: hash,
-      companyName: companyName || institutionName || teamName || name,
       role: "participant",
       category,
-      institutionName,
-      teamName,
-      teamSize,
-      projectTitle,
-      projectDescription,
-      stage,
-      coordinatorName,
-      pitchDeckUrl,
-      githubUrl,
-      demoVideoUrl
+      college: institutionName
     });
 
-    const token = jwt.sign(
-      { id: user._id },
-      process.env.JWT_SECRET
-    );
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 
     res.status(201).json({
+      success: true,
       token,
-      user
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        category: user.category
+      }
     });
-
-  } catch (err) {
-    res.status(500).json({
-      message: err.message
-    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 

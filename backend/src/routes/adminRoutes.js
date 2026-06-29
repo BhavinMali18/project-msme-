@@ -6,12 +6,24 @@ const {
   getCompanies,
   getParticipants,
   updateCompanyStatus,
-  updateParticipantStatus
+  updateParticipantStatus,
+  getMentorsAndEvaluators,
+  getTeams,
+  addPersonnel,
+  getAssignments,
+  assignTeam,
+  getActiveEvent
 } = require("../controllers/adminController");
 
 router.post("/login", adminLogin);
 router.get("/companies", getCompanies);
 router.get("/participants", getParticipants);
+router.get("/personnel", getMentorsAndEvaluators);
+router.post("/personnel", addPersonnel);
+router.get("/teams", getTeams);
+router.get("/assignments", getAssignments);
+router.post("/assignments", assignTeam);
+router.get("/active-event", getActiveEvent);
 router.put("/companies/:id/status", updateCompanyStatus);
 router.put("/participants/:id/status", updateParticipantStatus);
 

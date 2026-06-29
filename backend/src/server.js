@@ -7,13 +7,11 @@ const connectDB = require("./config/db");
 
 const app = express();
 
-connectDB();
-app.use(
-  "/api/assessments",
-  require("./routes/assessmentRoutes")
-);
+// CORS and body parsing MUST come first
 app.use(cors());
 app.use(express.json());
+
+connectDB();
 app.use(
   "/api/auth",
   require("./routes/authRoutes")
@@ -26,6 +24,18 @@ app.use(
   "/api/admin",
   require("./routes/adminRoutes")
 );
+app.use("/api/teams", require("./routes/teamRoutes"));
+app.use("/api/projects", require("./routes/projectRoutes"));
+app.use("/api/submissions", require("./routes/submissionRoutes"));
+app.use("/api/evaluations", require("./routes/evaluationRoutes"));
+app.use("/api/mentors", require("./routes/mentorRoutes"));
+app.use("/api/themes", require("./routes/themeRoutes"));
+app.use("/api/problem-statements", require("./routes/problemStatementRoutes"));
+app.use("/api/dept-heads", require("./routes/deptHeadRoutes"));
+app.use("/api/custom-questions", require("./routes/customQuestionRoutes"));
+app.use("/api/custom-answers", require("./routes/customAnswerRoutes"));
+app.use("/api/answers", require("./routes/employeeAnswerRoutes"));
+app.use("/api/assessments", require("./routes/assessmentRoutes"));
 
 app.get("/", (req, res) => {
   res.json({

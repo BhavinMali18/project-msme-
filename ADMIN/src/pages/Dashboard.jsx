@@ -1,31 +1,39 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import { Users, Building, Activity, UserCheck } from "lucide-react";
 import api from "../api";
-import { Users, Building, AlertCircle } from "lucide-react";
 
 export default function Dashboard() {
   const [stats, setStats] = useState({
     totalCompanies: 0,
     pendingCompanies: 0,
     totalParticipants: 0,
-    pendingParticipants: 0
+    pendingParticipants: 0,
+    projectsSubmitted: 0,
+    evaluatorsActive: 0
   });
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const [compRes, partRes] = await Promise.all([
+        const [compRes, partRes, teamsRes, personnelRes] = await Promise.all([
           api.get("/admin/companies"),
-          api.get("/admin/participants")
+          api.get("/admin/participants"),
+          api.get("/admin/teams"),
+          api.get("/admin/personnel")
         ]);
         
-        const companies = compRes.data;
-        const participants = partRes.data;
+        const companies = compRes.data || [];
+        const participants = partRes.data || [];
+        const teams = teamsRes.data || [];
+        const personnel = personnelRes.data || [];
 
         setStats({
           totalCompanies: companies.length,
           pendingCompanies: companies.filter(c => c.approvalStatus === "pending").length,
           totalParticipants: participants.length,
-          pendingParticipants: participants.filter(p => p.approvalStatus === "pending").length
+          pendingParticipants: participants.filter(p => p.approvalStatus === "pending").length,
+          projectsSubmitted: teams.length,
+          evaluatorsActive: personnel.filter(p => p.role === "evaluator").length
         });
       } catch (error) {
         console.error("Failed to fetch stats", error);
@@ -35,58 +43,64 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div>
-      <div className="page-header">
-        <h1 className="page-title">Admin Dashboard</h1>
-        <p className="page-desc">Overview of MSME Portal registrations and pending approvals.</p>
-      </div>
-
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "24px" }}>
+    <div style={{ padding: "40px 20px" }}>
+      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
         
-        <div className="card">
-          <div className="flex items-center gap-4">
-            <div style={{ padding: "12px", background: "rgba(59, 130, 246, 0.1)", borderRadius: "8px", color: "var(--primary)" }}>
-              <Building size={24} />
+        <h1 style={{ fontSize: "28px", color: "var(--text-main)", marginBottom: "4px", fontWeight: "700" }}>Control Center</h1>
+        <div style={{ color: "var(--text-secondary)", fontSize: "14px", marginBottom: "40px" }}>
+          MSME Hackathon Overview
+        </div>
+            
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "20px", marginBottom: "32px" }}>
+          <div className="glass-panel" style={{ padding: "24px", display: "flex", alignItems: "center", gap: "16px" }}>
+            <div style={{ padding: "16px", background: "rgba(59, 130, 246, 0.1)", borderRadius: "12px", color: "var(--accent-primary)" }}>
+              <Users size={32} />
             </div>
             <div>
-              <div className="text-muted text-sm font-semibold">Total Companies</div>
-              <div style={{ fontSize: "28px", fontWeight: "700" }}>{stats.totalCompanies}</div>
+              <div style={{ fontSize: "32px", fontWeight: "bold" }}>{stats.totalParticipants}</div>
+              <div style={{ fontSize: "14px", color: "var(--text-secondary)" }}>Total Registrations</div>
+            </div>
+          </div>
+          
+          <div className="glass-panel" style={{ padding: "24px", display: "flex", alignItems: "center", gap: "16px" }}>
+            <div style={{ padding: "16px", background: "rgba(16, 185, 129, 0.1)", borderRadius: "12px", color: "#10B981" }}>
+              <Activity size={32} />
+            </div>
+            <div>
+              <div style={{ fontSize: "32px", fontWeight: "bold" }}>{stats.projectsSubmitted}</div>
+              <div style={{ fontSize: "14px", color: "var(--text-secondary)" }}>Projects Submitted</div>
+            </div>
+          </div>
+          
+          <div className="glass-panel" style={{ padding: "24px", display: "flex", alignItems: "center", gap: "16px" }}>
+            <div style={{ padding: "16px", background: "rgba(245, 158, 11, 0.1)", borderRadius: "12px", color: "#F59E0B" }}>
+              <UserCheck size={32} />
+            </div>
+            <div>
+              <div style={{ fontSize: "32px", fontWeight: "bold" }}>{stats.evaluatorsActive}</div>
+              <div style={{ fontSize: "14px", color: "var(--text-secondary)" }}>Evaluators Active</div>
             </div>
           </div>
         </div>
 
-        <div className="card">
-          <div className="flex items-center gap-4">
-            <div style={{ padding: "12px", background: "rgba(245, 158, 11, 0.1)", borderRadius: "8px", color: "var(--warning)" }}>
-              <AlertCircle size={24} />
-            </div>
-            <div>
-              <div className="text-muted text-sm font-semibold">Pending Companies</div>
-              <div style={{ fontSize: "28px", fontWeight: "700" }}>{stats.pendingCompanies}</div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
+          <div className="glass-panel" style={{ padding: "24px" }}>
+            <h3 style={{ marginBottom: "16px", fontSize: "18px" }}>Participant Status</h3>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", color: "var(--text-secondary)" }}>
+              <span>Pending Approvals</span>
+              <span style={{ color: "var(--accent-warning)", fontWeight: "bold" }}>{stats.pendingParticipants}</span>
             </div>
           </div>
-        </div>
 
-        <div className="card">
-          <div className="flex items-center gap-4">
-            <div style={{ padding: "12px", background: "rgba(16, 185, 129, 0.1)", borderRadius: "8px", color: "var(--success)" }}>
-              <Users size={24} />
+          <div className="glass-panel" style={{ padding: "24px" }}>
+            <h3 style={{ marginBottom: "16px", fontSize: "18px" }}>Company/Partner Status</h3>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", color: "var(--text-secondary)" }}>
+              <span>Total Registered</span>
+              <span style={{ fontWeight: "bold" }}>{stats.totalCompanies}</span>
             </div>
-            <div>
-              <div className="text-muted text-sm font-semibold">Total Participants</div>
-              <div style={{ fontSize: "28px", fontWeight: "700" }}>{stats.totalParticipants}</div>
-            </div>
-          </div>
-        </div>
-
-        <div className="card">
-          <div className="flex items-center gap-4">
-            <div style={{ padding: "12px", background: "rgba(239, 68, 68, 0.1)", borderRadius: "8px", color: "var(--danger)" }}>
-              <AlertCircle size={24} />
-            </div>
-            <div>
-              <div className="text-muted text-sm font-semibold">Pending Participants</div>
-              <div style={{ fontSize: "28px", fontWeight: "700" }}>{stats.pendingParticipants}</div>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", color: "var(--text-secondary)" }}>
+              <span>Pending Approvals</span>
+              <span style={{ color: "var(--accent-warning)", fontWeight: "bold" }}>{stats.pendingCompanies}</span>
             </div>
           </div>
         </div>

@@ -4,8 +4,9 @@ import { useAuth } from "../../context/AuthContext";
 
 export default function RegisterEmployee() {
   const [searchParams] = useSearchParams();
-  const companyName = searchParams.get("company") || "Simulated MSME Corp";
-  const inviteEmail = searchParams.get("email") || "";
+  const companyName = searchParams.get("company") || "";
+  const inviteEmail  = searchParams.get("email")   || "";
+  const companyId    = searchParams.get("companyId") || "";
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState(inviteEmail);
@@ -38,6 +39,7 @@ export default function RegisterEmployee() {
         email,
         password,
         companyName,
+        companyId,
       });
       // Route participant to the assessment portal
       navigate("/dashboard");

@@ -100,30 +100,54 @@ export default function Companies() {
         </table>
       </div>
 
-      {/* Answers Modal */}
+      {/* Details Modal */}
       {selectedCompany && (
         <div className="modal-overlay" onClick={() => setSelectedCompany(null)}>
           <div className="modal-content" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
-              <h2 className="modal-title">{selectedCompany.name} - Assessment Answers</h2>
+              <h2 className="modal-title">{selectedCompany.name} - Company Details</h2>
               <button onClick={() => setSelectedCompany(null)} style={{ background: "none", border: "none", cursor: "pointer", fontSize: "20px" }}>&times;</button>
             </div>
             <div className="modal-body">
-              {selectedCompany.responses && selectedCompany.responses.length > 0 ? (
-                selectedCompany.responses.map((response, idx) => (
-                  <div key={idx} style={{ marginBottom: "24px", padding: "16px", background: "#F9FAFB", borderRadius: "8px", border: "1px solid #E5E7EB" }}>
-                    <h3 style={{ fontSize: "14px", fontWeight: "600", marginBottom: "12px", color: "var(--primary)" }}>Response Set #{idx + 1}</h3>
-                    {Object.entries(response.answers).map(([qId, answer]) => (
-                      <div key={qId} style={{ marginBottom: "12px" }}>
-                        <div style={{ fontSize: "12px", color: "var(--text-muted)", marginBottom: "4px" }}>Question ID: {qId}</div>
-                        <div style={{ fontSize: "14px", fontWeight: "500" }}>{typeof answer === 'object' ? JSON.stringify(answer) : String(answer)}</div>
+              
+              <div style={{ marginBottom: "32px" }}>
+                <h3 style={{ fontSize: "16px", fontWeight: "600", marginBottom: "16px", paddingBottom: "8px", borderBottom: "1px solid var(--border)" }}>Registered Employees</h3>
+                {selectedCompany.employees && selectedCompany.employees.length > 0 ? (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                    {selectedCompany.employees.map(emp => (
+                      <div key={emp._id} style={{ padding: "12px", background: "var(--bg-main)", borderRadius: "8px", border: "1px solid var(--border)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                        <div>
+                          <div style={{ fontWeight: "500", fontSize: "14px" }}>{emp.name}</div>
+                          <div style={{ fontSize: "12px", color: "var(--text-muted)" }}>{emp.email}</div>
+                        </div>
+                        <span className={`badge badge-${emp.approvalStatus || 'pending'}`}>{emp.approvalStatus || 'pending'}</span>
                       </div>
                     ))}
                   </div>
-                ))
-              ) : (
-                <p className="text-muted">No questionnaire responses submitted yet.</p>
-              )}
+                ) : (
+                  <p className="text-muted">No employees registered for this company yet.</p>
+                )}
+              </div>
+
+              <div>
+                <h3 style={{ fontSize: "16px", fontWeight: "600", marginBottom: "16px", paddingBottom: "8px", borderBottom: "1px solid var(--border)" }}>Assessment Answers</h3>
+                {selectedCompany.responses && selectedCompany.responses.length > 0 ? (
+                  selectedCompany.responses.map((response, idx) => (
+                    <div key={idx} style={{ marginBottom: "24px", padding: "16px", background: "var(--bg-main)", borderRadius: "8px", border: "1px solid var(--border)" }}>
+                      <h4 style={{ fontSize: "14px", fontWeight: "600", marginBottom: "12px", color: "var(--primary)" }}>Response Set #{idx + 1}</h4>
+                      {Object.entries(response.answers).map(([qId, answer]) => (
+                        <div key={qId} style={{ marginBottom: "12px" }}>
+                          <div style={{ fontSize: "12px", color: "var(--text-muted)", marginBottom: "4px" }}>Question ID: {qId}</div>
+                          <div style={{ fontSize: "14px", fontWeight: "500" }}>{typeof answer === 'object' ? JSON.stringify(answer) : String(answer)}</div>
+                        </div>
+                      ))}
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-muted">No questionnaire responses submitted yet.</p>
+                )}
+              </div>
+
             </div>
             <div className="modal-footer">
               <button className="btn btn-outline" onClick={() => setSelectedCompany(null)}>Close</button>

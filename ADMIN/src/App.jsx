@@ -2,8 +2,12 @@ import { BrowserRouter, Routes, Route, NavLink, Navigate, useNavigate } from "re
 import Dashboard from "./pages/Dashboard";
 import Companies from "./pages/Companies";
 import Participants from "./pages/Participants";
+import RubricBuilder from "./pages/RubricBuilder";
+import JuryAssignment from "./pages/JuryAssignment";
+import ThemeManager from "./pages/ThemeManager";
+import DepartmentBuilder from "./pages/DepartmentBuilder";
 import Login from "./pages/Login";
-import { LayoutDashboard, Building2, Users, LogOut } from "lucide-react";
+import { LayoutDashboard, Building2, Users, LogOut, Sliders, UserCheck, Palette, LayoutList } from "lucide-react";
 
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem("adminToken");
@@ -33,10 +37,22 @@ const AdminLayout = () => {
             <Building2 size={20} /> MSME Companies
           </NavLink>
           <NavLink to="/participants" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-            <Users size={20} /> Hackathon
+            <Users size={20} /> Participants
+          </NavLink>
+          <NavLink to="/themes" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+            <Palette size={20} /> Theme Builder
+          </NavLink>
+          <NavLink to="/departments" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+            <LayoutList size={20} /> Questionnaire Builder
+          </NavLink>
+          <NavLink to="/rubrics" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+            <Sliders size={20} /> Rubric Builder
+          </NavLink>
+          <NavLink to="/assignments" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+            <UserCheck size={20} /> Jury & Mentors
           </NavLink>
         </nav>
-        <div style={{ padding: "0 24px", marginTop: "auto" }}>
+        <div style={{ padding: "0 24px", marginTop: "auto", marginBottom: "24px" }}>
           <button onClick={handleLogout} className="btn btn-outline" style={{ width: "100%", color: "var(--text-sidebar)", borderColor: "rgba(255,255,255,0.2)" }}>
             <LogOut size={16} /> Logout
           </button>
@@ -47,6 +63,10 @@ const AdminLayout = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/companies" element={<Companies />} />
           <Route path="/participants" element={<Participants />} />
+          <Route path="/themes" element={<ThemeManager />} />
+          <Route path="/departments" element={<DepartmentBuilder />} />
+          <Route path="/rubrics" element={<RubricBuilder />} />
+          <Route path="/assignments" element={<JuryAssignment />} />
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </main>

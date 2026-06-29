@@ -12,7 +12,13 @@ import Questions from "./pages/admin/Questions";
 import UploadQuestionnaire from "./pages/admin/UploadQuestionnaire";
 
 import CompanyDashboard from "./pages/company/Dashboard";
+import ProblemStatementWizard from "./pages/company/ProblemStatementWizard";
+import DeptHeads from "./pages/company/DeptHeads";
+import CustomQuestions from "./pages/company/CustomQuestions";
+
 import ParticipantDashboard from "./pages/dashboard/Dashboard";
+import Questionnaire from "./pages/dashboard/Questionnaire";
+import DeptDashboard from "./pages/dept/Dashboard";
 
 const RootRedirect = () => {
   const { isAuthenticated, user, loading } = useAuth();
@@ -29,11 +35,10 @@ const RootRedirect = () => {
     return <Navigate to="/login" replace />;
   }
 
-  return user?.role === "company" ? (
-    <Navigate to="/company/dashboard" replace />
-  ) : (
-    <Navigate to="/dashboard" replace />
-  );
+  if (user?.role === "company") return <Navigate to="/company/dashboard" replace />;
+  if (user?.role === "dept_head") return <Navigate to="/dept/dashboard" replace />;
+  // participant = employee
+  return <Navigate to="/dashboard" replace />;
 };
 
 function App() {
@@ -57,13 +62,55 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/company/submit-problem"
+          element={
+            <ProtectedRoute allowedRole="company">
+              <ProblemStatementWizard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/company/dept-heads"
+          element={
+            <ProtectedRoute allowedRole="company">
+              <DeptHeads />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/company/custom-questions"
+          element={
+            <ProtectedRoute allowedRole="company">
+              <CustomQuestions />
+            </ProtectedRoute>
+          }
+        />
 
-        {/* Participant Portal (Protected) */}
+        {/* Dept Head Portal */}
+        <Route
+          path="/dept/dashboard"
+          element={
+            <ProtectedRoute allowedRole="dept_head">
+              <DeptDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Employee/Participant Portal (Protected) */}
         <Route
           path="/dashboard"
           element={
             <ProtectedRoute allowedRole="participant">
               <ParticipantDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/questionnaire/:departmentId"
+          element={
+            <ProtectedRoute allowedRole="participant">
+              <Questionnaire />
             </ProtectedRoute>
           }
         />

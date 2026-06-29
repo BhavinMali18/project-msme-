@@ -24,6 +24,8 @@ export default function Login() {
       // Route based on role
       if (user.role === "company") {
         navigate("/company/dashboard");
+      } else if (user.role === "dept_head") {
+        navigate("/dept/dashboard");
       } else {
         navigate("/dashboard");
       }
@@ -90,7 +92,7 @@ export default function Login() {
             />
           </div>
 
-          <button type="submit" className="btn-primary" disabled={loading} style={{ marginTop: "12px" }}>
+          <button type="submit" className="btn btn-primary" disabled={loading} style={{ marginTop: "12px", width: "100%" }}>
             {loading ? "Logging in..." : "Log In"}
           </button>
         </form>
@@ -156,7 +158,7 @@ export default function Login() {
                     required
                   />
                 </div>
-                <button type="submit" className="btn-primary">
+                <button type="submit" className="btn btn-primary" style={{ width: "100%" }}>
                   Send reset link
                 </button>
               </form>

@@ -14,6 +14,9 @@ const companySchema = new mongoose.Schema(
     pinCode: String,
     contactPerson: String,
     phone: String,
+    industry: String,
+    website: String,
+    email: String,
     approvalStatus: {
       type: String,
       enum: ["pending", "approved", "rejected"],
