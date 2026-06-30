@@ -11,7 +11,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
+      - name: Check Secrets
+        run: |
+          echo "HOST: '${{ secrets.VPS_HOST }}'"
+          echo "USER: '${{ secrets.VPS_USER }}'"
+          echo "PORT: '${{ secrets.VPS_PORT }}'"
+          echo "KEY LENGTH: ${#KEY}"
+        env:
+          KEY: ${{ secrets.VPS_SSH_KEY }}
       - name: Deploy
         uses: appleboy/ssh-action@v1.2.0
 
