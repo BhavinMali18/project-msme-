@@ -34,9 +34,9 @@ export default function DashboardLayout({
   ];
 
   return (
-    <div className="min-h-screen bg-dark flex">
+    <div className="min-h-screen bg-white flex">
       {/* Sidebar */}
-      <aside className="w-64 border-r border-white/10 bg-dark/50 backdrop-blur-md hidden md:flex flex-col">
+      <aside className="w-64 border-r border-white/10 bg-black/50 backdrop-blur-md hidden md:flex flex-col">
         <div className="p-6">
           <Link href="/" className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-primary to-secondary flex items-center justify-center font-heading font-bold text-lg">
@@ -55,8 +55,8 @@ export default function DashboardLayout({
                 href={item.href}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
                   isActive 
-                    ? "bg-primary text-white" 
-                    : "text-gray-400 hover:text-white hover:bg-white/5"
+                    ? "bg-primary text-slate-900" 
+                    : "text-gray-600 hover:text-slate-900 hover:bg-black/5"
                 }`}
               >
                 {item.icon}
@@ -76,12 +76,12 @@ export default function DashboardLayout({
 
       {/* Main Content */}
       <main className="flex-1 overflow-y-auto bg-[url('/grid.svg')] bg-center bg-no-repeat bg-cover bg-fixed">
-        <div className="absolute inset-0 bg-dark/90 -z-10" />
+        <div className="absolute inset-0 bg-white/90 -z-10" />
         <div className="p-6 md:p-10 max-w-6xl mx-auto">
           <header className="flex justify-between items-center mb-8">
             <h1 className="text-2xl font-heading font-bold">Dashboard</h1>
             <div className="flex items-center gap-4">
-              <button className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors">
+              <button className="w-10 h-10 rounded-full bg-black/5 border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors">
                 <Bell size={18} />
               </button>
               <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-accent to-primary flex items-center justify-center font-bold">

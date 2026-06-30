@@ -14,7 +14,7 @@ export default function Timeline() {
   ];
 
   return (
-    <section id="timeline" className="py-24 bg-dark relative border-t border-white/10">
+    <section id="timeline" className="py-24 bg-white relative border-t border-white/10">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <motion.h2 
@@ -47,12 +47,12 @@ export default function Timeline() {
                 <div className="absolute left-4 md:left-1/2 top-0 md:top-1/2 w-4 h-4 rounded-full bg-white border-4 border-primary -translate-x-[7px] md:-translate-x-1/2 md:-translate-y-1/2 z-10 shadow-[0_0_10px_rgba(0,87,255,0.8)]" />
                 
                 <div className="w-full md:w-1/2 pl-12 md:pl-0 md:px-8">
-                  <div className={`p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/50 transition-colors ${
+                  <div className={`p-6 rounded-2xl bg-black/5 border border-white/10 hover:border-primary/50 transition-colors ${
                     i % 2 === 0 ? "md:ml-auto" : ""
                   }`}>
                     <span className="text-sm font-bold text-primary mb-2 block tracking-wider uppercase">{event.date}</span>
-                    <h3 className="text-xl font-heading font-semibold text-white mb-2">{event.title}</h3>
-                    <p className="text-gray-400">{event.desc}</p>
+                    <h3 className="text-xl font-heading font-semibold text-slate-900 mb-2">{event.title}</h3>
+                    <p className="text-gray-600">{event.desc}</p>
                   </div>
                 </div>
                 <div className="hidden md:block w-1/2" />

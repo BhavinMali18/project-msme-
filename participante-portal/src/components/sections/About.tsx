@@ -38,7 +38,7 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="py-24 bg-dark relative overflow-hidden">
+    <section id="about" className="py-24 bg-white relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
       
       <div className="container mx-auto px-6 relative z-10">
@@ -56,7 +56,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-gray-400 max-w-2xl mx-auto text-lg"
+            className="text-gray-600 max-w-2xl mx-auto text-lg"
           >
             More than just a hackathon. It's a platform to showcase your talent, build your network, and launch your career in tech.
           </motion.p>
@@ -71,14 +71,14 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -5 }}
-              className="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/50 transition-colors group relative overflow-hidden"
+              className="p-8 rounded-2xl bg-black/5 border border-white/10 hover:border-primary/50 transition-colors group relative overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="w-14 h-14 rounded-xl bg-white/10 flex items-center justify-center mb-6 border border-white/5 relative z-10">
+              <div className="w-14 h-14 rounded-xl bg-black/5 flex items-center justify-center mb-6 border border-white/5 relative z-10">
                 {feature.icon}
               </div>
               <h3 className="text-xl font-heading font-semibold mb-3 relative z-10">{feature.title}</h3>
-              <p className="text-gray-400 relative z-10">{feature.description}</p>
+              <p className="text-gray-600 relative z-10">{feature.description}</p>
             </motion.div>
           ))}
         </div>

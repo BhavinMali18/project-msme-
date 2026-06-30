@@ -13,11 +13,11 @@
 
 @layer base {
   :root {
-    --background: #111827;
-    --foreground: #ffffff;
-    --card: #1f2937;
-    --card-foreground: #ffffff;
-    --border: #374151;
+    --background: #ffffff;
+    --foreground: #111827;
+    --card: #f3f4f6;
+    --card-foreground: #111827;
+    --border: #e5e7eb;
   }
 }
 

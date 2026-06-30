@@ -18,7 +18,7 @@ export default function Tracks() {
   ];
 
   return (
-    <section id="tracks" className="py-24 bg-dark relative border-t border-white/10 overflow-hidden">
+    <section id="tracks" className="py-24 bg-white relative border-t border-white/10 overflow-hidden">
       <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[100px] -translate-y-1/2 pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
@@ -36,7 +36,7 @@ export default function Tracks() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-gray-400 max-w-2xl mx-auto text-lg"
+            className="text-gray-600 max-w-2xl mx-auto text-lg"
           >
             Choose a domain that sparks your passion. Solve pressing issues across 10 diverse categories.
           </motion.p>
@@ -51,10 +51,10 @@ export default function Tracks() {
               viewport={{ once: true }}
               transition={{ delay: track.delay * 0.5, duration: 0.5 }}
               whileHover={{ y: -10, scale: 1.05 }}
-              className="group relative p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-white/30 flex flex-col items-center justify-center text-center overflow-hidden h-48 cursor-pointer"
+              className="group relative p-6 rounded-2xl bg-black/5 border border-white/10 hover:border-white/30 flex flex-col items-center justify-center text-center overflow-hidden h-48 cursor-pointer"
             >
               <div className={`absolute inset-0 bg-gradient-to-br ${track.color} opacity-0 group-hover:opacity-20 transition-opacity duration-300`} />
-              <div className={`text-white/50 group-hover:text-white transition-colors duration-300 mb-4`}>
+              <div className={`text-slate-900/50 group-hover:text-slate-900 transition-colors duration-300 mb-4`}>
                 {track.icon}
               </div>
               <h3 className="font-heading font-semibold text-lg">{track.title}</h3>

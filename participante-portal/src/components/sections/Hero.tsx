@@ -34,7 +34,7 @@ export default function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
     >
       {/* Background Gradients */}
-      <div className="absolute inset-0 bg-dark z-0">
+      <div className="absolute inset-0 bg-white z-0">
         <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] mix-blend-screen animate-pulse" />
         <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-accent/20 rounded-full blur-[150px] mix-blend-screen animate-pulse" style={{ animationDelay: "2s" }} />
       </div>
@@ -60,7 +60,7 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="inline-block mb-4 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-sm text-secondary font-medium"
+          className="inline-block mb-4 px-4 py-1.5 rounded-full border border-white/10 bg-black/5 backdrop-blur-sm text-sm text-secondary font-medium"
         >
           Dates Announced: Oct 15-17, 2026
         </motion.div>
@@ -78,7 +78,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-10"
+          className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-10"
         >
           India's Biggest Student Innovation Hackathon where students solve real-world problems using AI, Web, Mobile, IoT and Cloud.
         </motion.p>
@@ -99,7 +99,7 @@ export default function Hero() {
           </Link>
           <Link
             href="#tracks"
-            className="flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-lg border border-white/20 hover:bg-white/10 transition-colors"
+            className="flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-lg border border-white/20 hover:bg-black/5 transition-colors"
           >
             Explore Tracks
           </Link>
@@ -123,8 +123,8 @@ export default function Hero() {
               { value: "₹10 Lakhs+", label: "Prize Pool" },
             ].map((stat, i) => (
               <div key={i} className="text-center">
-                <h3 className="font-heading font-bold text-3xl md:text-4xl text-white mb-1">{stat.value}</h3>
-                <p className="text-sm text-gray-400 font-medium uppercase tracking-wider">{stat.label}</p>
+                <h3 className="font-heading font-bold text-3xl md:text-4xl text-slate-900 mb-1">{stat.value}</h3>
+                <p className="text-sm text-gray-600 font-medium uppercase tracking-wider">{stat.label}</p>
               </div>
             ))}
           </div>

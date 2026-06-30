@@ -35,7 +35,7 @@ export default function Navbar() {
       transition={{ duration: 0.5 }}
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-dark/80 backdrop-blur-md border-b border-white/10 py-3"
+          ? "bg-white/80 backdrop-blur-md border-b border-white/10 py-3"
           : "bg-transparent py-5"
       }`}
     >
@@ -54,7 +54,7 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-sm text-gray-300 hover:text-white transition-colors"
+                className="text-sm text-gray-700 hover:text-slate-900 transition-colors"
               >
                 {link.name}
               </Link>
@@ -66,7 +66,7 @@ export default function Navbar() {
             </Link>
             <Link
               href="/register"
-              className="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-full text-sm font-medium transition-all hover:shadow-[0_0_15px_rgba(0,87,255,0.5)]"
+              className="bg-primary hover:bg-primary/90 text-slate-900 px-5 py-2 rounded-full text-sm font-medium transition-all hover:shadow-[0_0_15px_rgba(0,87,255,0.5)]"
             >
               Apply Now
             </Link>
@@ -75,7 +75,7 @@ export default function Navbar() {
 
         {/* Mobile Toggle */}
         <button
-          className="lg:hidden text-white"
+          className="lg:hidden text-slate-900"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -87,14 +87,14 @@ export default function Navbar() {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="lg:hidden absolute top-full left-0 w-full bg-dark/95 backdrop-blur-xl border-b border-white/10 p-6 flex flex-col gap-4"
+          className="lg:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-white/10 p-6 flex flex-col gap-4"
         >
           {navLinks.map((link) => (
             <Link
               key={link.name}
               href={link.href}
               onClick={() => setMobileMenuOpen(false)}
-              className="text-lg text-gray-300 hover:text-white"
+              className="text-lg text-gray-700 hover:text-slate-900"
             >
               {link.name}
             </Link>
@@ -110,7 +110,7 @@ export default function Navbar() {
           <Link
             href="/register"
             onClick={() => setMobileMenuOpen(false)}
-            className="bg-primary text-white text-center py-3 rounded-xl font-medium mt-2"
+            className="bg-primary text-slate-900 text-center py-3 rounded-xl font-medium mt-2"
           >
             Apply Now
           </Link>

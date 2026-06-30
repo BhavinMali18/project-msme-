@@ -15,7 +15,7 @@ export default function AdminDashboard() {
     <div className="space-y-8">
       <header className="mb-8">
         <h1 className="text-2xl font-heading font-bold">Analytics Dashboard</h1>
-        <p className="text-gray-400">Overview of Code for Gujarat 2026 Hackathon</p>
+        <p className="text-gray-600">Overview of Code for Gujarat 2026 Hackathon</p>
       </header>
 
       {/* Stats Grid */}
@@ -26,25 +26,25 @@ export default function AdminDashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
-            className="p-6 rounded-2xl bg-white/5 border border-white/10"
+            className="p-6 rounded-2xl bg-black/5 border border-white/10"
           >
             <div className="flex justify-between items-start mb-4">
-              <div className="p-3 bg-white/5 rounded-xl">{stat.icon}</div>
-              <span className={`text-sm font-medium ${stat.change.startsWith('+') ? 'text-green-400' : stat.change.startsWith('-') ? 'text-red-400' : 'text-gray-400'}`}>
+              <div className="p-3 bg-black/5 rounded-xl">{stat.icon}</div>
+              <span className={`text-sm font-medium ${stat.change.startsWith('+') ? 'text-green-400' : stat.change.startsWith('-') ? 'text-red-400' : 'text-gray-600'}`}>
                 {stat.change}
               </span>
             </div>
-            <h3 className="text-gray-400 text-sm mb-1">{stat.title}</h3>
+            <h3 className="text-gray-600 text-sm mb-1">{stat.title}</h3>
             <span className="text-3xl font-bold">{stat.value}</span>
           </motion.div>
         ))}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
-        <div className="bg-white/5 border border-white/10 rounded-3xl p-6 h-96 flex items-center justify-center">
+        <div className="bg-black/5 border border-white/10 rounded-3xl p-6 h-96 flex items-center justify-center">
           <p className="text-gray-500">Registration Timeline Chart Area</p>
         </div>
-        <div className="bg-white/5 border border-white/10 rounded-3xl p-6 h-96 flex items-center justify-center">
+        <div className="bg-black/5 border border-white/10 rounded-3xl p-6 h-96 flex items-center justify-center">
           <p className="text-gray-500">Track Demographics Chart Area</p>
         </div>
       </div>

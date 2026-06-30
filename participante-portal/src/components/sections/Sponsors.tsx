@@ -10,7 +10,7 @@ export default function Sponsors() {
   };
 
   return (
-    <section id="sponsors" className="py-24 bg-dark relative border-t border-white/10 overflow-hidden">
+    <section id="sponsors" className="py-24 bg-white relative border-t border-white/10 overflow-hidden">
       <div className="container mx-auto px-6 relative z-10 text-center">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
@@ -33,9 +33,9 @@ export default function Sponsors() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="w-64 h-32 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center grayscale hover:grayscale-0 hover:bg-white/10 transition-all cursor-pointer"
+                  className="w-64 h-32 rounded-2xl bg-black/5 border border-white/10 flex items-center justify-center grayscale hover:grayscale-0 hover:bg-black/5 transition-all cursor-pointer"
                 >
-                  <span className="text-3xl font-heading font-bold text-white/80">{sponsor}</span>
+                  <span className="text-3xl font-heading font-bold text-slate-900/80">{sponsor}</span>
                 </motion.div>
               ))}
             </div>
@@ -52,9 +52,9 @@ export default function Sponsors() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="w-48 h-24 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center grayscale hover:grayscale-0 hover:bg-white/10 transition-all cursor-pointer"
+                  className="w-48 h-24 rounded-2xl bg-black/5 border border-white/10 flex items-center justify-center grayscale hover:grayscale-0 hover:bg-black/5 transition-all cursor-pointer"
                 >
-                  <span className="text-2xl font-heading font-bold text-white/70">{sponsor}</span>
+                  <span className="text-2xl font-heading font-bold text-slate-900/70">{sponsor}</span>
                 </motion.div>
               ))}
             </div>
@@ -71,9 +71,9 @@ export default function Sponsors() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="w-40 h-20 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center grayscale hover:grayscale-0 hover:bg-white/10 transition-all cursor-pointer"
+                  className="w-40 h-20 rounded-xl bg-black/5 border border-white/10 flex items-center justify-center grayscale hover:grayscale-0 hover:bg-black/5 transition-all cursor-pointer"
                 >
-                  <span className="text-xl font-heading font-bold text-white/60">{sponsor}</span>
+                  <span className="text-xl font-heading font-bold text-slate-900/60">{sponsor}</span>
                 </motion.div>
               ))}
             </div>

@@ -35,7 +35,7 @@ export default function FAQ() {
   };
 
   return (
-    <section id="faq" className="py-24 bg-dark relative border-t border-white/10">
+    <section id="faq" className="py-24 bg-white relative border-t border-white/10">
       <div className="container mx-auto px-6 max-w-4xl">
         <div className="text-center mb-16">
           <motion.h2 
@@ -56,7 +56,7 @@ export default function FAQ() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="border border-white/10 rounded-2xl bg-white/5 overflow-hidden"
+              className="border border-white/10 rounded-2xl bg-black/5 overflow-hidden"
             >
               <button
                 className="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none"
@@ -66,7 +66,7 @@ export default function FAQ() {
                 {activeIndex === index ? (
                   <Minus className="text-primary flex-shrink-0" size={20} />
                 ) : (
-                  <Plus className="text-gray-400 flex-shrink-0" size={20} />
+                  <Plus className="text-gray-600 flex-shrink-0" size={20} />
                 )}
               </button>
               
@@ -78,7 +78,7 @@ export default function FAQ() {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
-                    <div className="px-6 pb-5 text-gray-400">
+                    <div className="px-6 pb-5 text-gray-600">
                       {faq.answer}
                     </div>
                   </motion.div>

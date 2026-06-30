@@ -6,7 +6,7 @@ import { Trophy, Medal, Award, Gift, Star, Zap } from "lucide-react";
 export default function Prizes() {
   const topPrizes = [
     { title: "Champion", amount: "₹5,00,000", icon: <Trophy size={48} className="text-yellow-400" />, color: "from-yellow-400/20 to-yellow-600/5", border: "border-yellow-400/50" },
-    { title: "Runner Up", amount: "₹3,00,000", icon: <Medal size={40} className="text-gray-300" />, color: "from-gray-300/20 to-gray-500/5", border: "border-gray-300/50" },
+    { title: "Runner Up", amount: "₹3,00,000", icon: <Medal size={40} className="text-gray-700" />, color: "from-gray-300/20 to-gray-500/5", border: "border-gray-300/50" },
     { title: "Second Runner Up", amount: "₹1,00,000", icon: <Medal size={40} className="text-amber-600" />, color: "from-amber-600/20 to-amber-800/5", border: "border-amber-600/50" },
   ];
 
@@ -19,7 +19,7 @@ export default function Prizes() {
   ];
 
   return (
-    <section id="prizes" className="py-24 bg-dark relative border-t border-white/10 overflow-hidden">
+    <section id="prizes" className="py-24 bg-white relative border-t border-white/10 overflow-hidden">
       <div className="absolute top-1/2 right-0 w-[600px] h-[600px] bg-yellow-500/5 rounded-full blur-[150px] -translate-y-1/2 pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
@@ -37,7 +37,7 @@ export default function Prizes() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-gray-400 max-w-2xl mx-auto text-lg"
+            className="text-gray-600 max-w-2xl mx-auto text-lg"
           >
             ₹10 Lakhs+ in cash prizes, exciting swags, certificates, and internship opportunities for everyone.
           </motion.p>
@@ -69,7 +69,7 @@ export default function Prizes() {
             <div className="absolute -top-6 bg-yellow-400 text-dark px-4 py-1 rounded-full text-sm font-bold tracking-widest uppercase">1st Place</div>
             <div className="mb-6 mt-4">{topPrizes[0].icon}</div>
             <h3 className="text-3xl font-heading font-bold mb-2 text-yellow-400">{topPrizes[0].title}</h3>
-            <p className="text-5xl font-bold text-white mb-4">{topPrizes[0].amount}</p>
+            <p className="text-5xl font-bold text-slate-900 mb-4">{topPrizes[0].amount}</p>
             <p className="text-yellow-200/60 text-sm">Plus Incubation Support</p>
           </motion.div>
 
@@ -97,9 +97,9 @@ export default function Prizes() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="p-6 rounded-xl bg-white/5 border border-white/10 text-center flex flex-col items-center hover:bg-white/10 transition-colors"
+              className="p-6 rounded-xl bg-black/5 border border-white/10 text-center flex flex-col items-center hover:bg-black/5 transition-colors"
             >
-              <div className="mb-3 p-3 bg-white/5 rounded-full">{prize.icon}</div>
+              <div className="mb-3 p-3 bg-black/5 rounded-full">{prize.icon}</div>
               <h4 className="font-heading font-semibold text-sm mb-2">{prize.title}</h4>
               <p className="text-xl font-bold text-primary">{prize.amount}</p>
             </motion.div>

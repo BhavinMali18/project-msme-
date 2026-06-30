@@ -18,7 +18,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 bg-dark relative border-t border-white/10 overflow-hidden">
+    <section id="contact" className="py-24 bg-white relative border-t border-white/10 overflow-hidden">
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[150px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
@@ -31,7 +31,7 @@ export default function Contact() {
           >
             Get in <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-secondary">Touch</span>
           </motion.h2>
-          <p className="text-gray-400">Have questions? We'd love to hear from you.</p>
+          <p className="text-gray-600">Have questions? We'd love to hear from you.</p>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-12 max-w-6xl mx-auto">
@@ -44,30 +44,30 @@ export default function Contact() {
           >
             <div className="space-y-6">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 text-primary">
+                <div className="w-12 h-12 rounded-xl bg-black/5 border border-white/10 flex items-center justify-center flex-shrink-0 text-primary">
                   <MapPin size={24} />
                 </div>
                 <div>
                   <h4 className="font-heading font-semibold text-lg mb-1">Address</h4>
-                  <p className="text-gray-400 text-sm">Gujarat Technological University, <br/>Chandkheda, Ahmedabad, Gujarat 382424</p>
+                  <p className="text-gray-600 text-sm">Gujarat Technological University, <br/>Chandkheda, Ahmedabad, Gujarat 382424</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 text-secondary">
+                <div className="w-12 h-12 rounded-xl bg-black/5 border border-white/10 flex items-center justify-center flex-shrink-0 text-secondary">
                   <Mail size={24} />
                 </div>
                 <div>
                   <h4 className="font-heading font-semibold text-lg mb-1">Email</h4>
-                  <p className="text-gray-400 text-sm">contact@codeforgujarat.in</p>
+                  <p className="text-gray-600 text-sm">contact@codeforgujarat.in</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 text-accent">
+                <div className="w-12 h-12 rounded-xl bg-black/5 border border-white/10 flex items-center justify-center flex-shrink-0 text-accent">
                   <Phone size={24} />
                 </div>
                 <div>
                   <h4 className="font-heading font-semibold text-lg mb-1">Phone</h4>
-                  <p className="text-gray-400 text-sm">+91 98765 43210</p>
+                  <p className="text-gray-600 text-sm">+91 98765 43210</p>
                 </div>
               </div>
             </div>
@@ -92,32 +92,32 @@ export default function Contact() {
             viewport={{ once: true }}
             className="w-full lg:w-1/2"
           >
-            <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-md">
+            <div className="bg-black/5 border border-white/10 rounded-3xl p-8 backdrop-blur-md">
               <h3 className="text-2xl font-heading font-bold mb-6">Send us a message</h3>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-300">First Name</label>
-                    <input type="text" required className="w-full bg-dark/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors" placeholder="John" />
+                    <label className="text-sm font-medium text-gray-700">First Name</label>
+                    <input type="text" required className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-primary transition-colors" placeholder="John" />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-300">Last Name</label>
-                    <input type="text" required className="w-full bg-dark/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors" placeholder="Doe" />
+                    <label className="text-sm font-medium text-gray-700">Last Name</label>
+                    <input type="text" required className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-primary transition-colors" placeholder="Doe" />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-300">Email Address</label>
-                  <input type="email" required className="w-full bg-dark/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors" placeholder="john@example.com" />
+                  <label className="text-sm font-medium text-gray-700">Email Address</label>
+                  <input type="email" required className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-primary transition-colors" placeholder="john@example.com" />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-300">Message</label>
-                  <textarea required rows={4} className="w-full bg-dark/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors resize-none" placeholder="How can we help you?"></textarea>
+                  <label className="text-sm font-medium text-gray-700">Message</label>
+                  <textarea required rows={4} className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-primary transition-colors resize-none" placeholder="How can we help you?"></textarea>
                 </div>
                 
                 <button 
                   type="submit" 
                   disabled={formStatus !== "idle"}
-                  className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-4 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+                  className="w-full bg-primary hover:bg-primary/90 text-slate-900 font-medium py-4 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed mt-2"
                 >
                   {formStatus === "idle" && "Send Message"}
                   {formStatus === "submitting" && "Sending..."}
