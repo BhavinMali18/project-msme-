@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v4
       - name: Decode SSH Key
         shell: bash
         env:
@@ -18,20 +19,9 @@ jobs:
           mkdir -p ~/.ssh
           echo "$KEY_B64" | base64 -d > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keygen -lf ~/.ssh/id_ed25519
-
-
-      - name: Verify SSH Key
-        run: |
-          mkdir -p ~/.ssh
-          echo "$KEY" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-
-          echo "Fingerprint:"
-          ssh-keygen -lf ~/.ssh/id_ed25519
-        env:
-          KEY: ${{ secrets.VPS_SSH_KEY }}
-      - uses: actions/checkout@v4
+          ssh-keygen -y -f ~/.ssh/id_ed25519 > ~/.ssh/id_ed25519.pub
+          ssh-keygen -lf ~/.ssh/id_ed25519.pub
+      
       - name: Check Secrets
         run: |
           echo "HOST: '${{ secrets.VPS_HOST }}'"
@@ -40,15 +30,14 @@ jobs:
           echo "KEY LENGTH: ${#KEY}"
         env:
           KEY: ${{ secrets.VPS_SSH_KEY }}
+          
       - name: Deploy
         uses: appleboy/ssh-action@v1.2.0
-
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_PORT }}
-
           script: |
             cd /var/www/html/msme/project-msme-
 
