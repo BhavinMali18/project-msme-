@@ -20,7 +20,7 @@ jobs:
           username: ${{ secrets.HOSTINGER_USERNAME }}
           key: ${{ secrets.HOSTINGER_SSH_KEY }}
           script: |
-            cd /var/www/project-msme
+            cd /var/www/html/project-msme-
             
             # Pull latest changes from git
             git pull origin main
@@ -35,7 +35,7 @@ jobs:
             cd msme-portal
             npm install
             npm run build
-            # Assuming Nginx serves from /var/www/project-msme/msme-portal/dist
+            # Assuming Nginx serves from /var/www/html/project-msme-/msme-portal/dist
             cd ..
             
             # 3. Build Participant Portal
@@ -49,7 +49,7 @@ jobs:
             cd ADMIN
             npm install
             npm run build
-            # Assuming Nginx serves from /var/www/project-msme/ADMIN/dist
+            # Assuming Nginx serves from /var/www/html/project-msme-/ADMIN/dist
             cd ..
             
             # Save PM2 configuration
