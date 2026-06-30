@@ -10,6 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Decode SSH Key
+        shell: bash
+        env:
+          KEY_B64: ${{ secrets.VPS_SSH_KEY_B64 }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$KEY_B64" | base64 -d > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keygen -lf ~/.ssh/id_ed25519
+
+
       - name: Verify SSH Key
         run: |
           mkdir -p ~/.ssh
