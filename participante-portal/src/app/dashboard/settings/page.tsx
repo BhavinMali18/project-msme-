@@ -1,13 +1,16 @@
 "use client";
 
-import { Settings, User, Lock, Bell, Globe } from "lucide-react";
+import { Settings, UserIcon, Lock, Bell, Mail, Phone, MapPin, Building2 } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function SettingsPage() {
+  const { user } = useAuth();
+
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-heading font-bold text-slate-900">Settings</h1>
-        <p className="text-gray-400 text-sm mt-1">Manage your account preferences</p>
+        <p className="text-gray-400 text-sm mt-1">Manage your account profile and preferences</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -15,42 +18,60 @@ export default function SettingsPage() {
         <div className="lg:col-span-2 space-y-4">
           <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm">
             <div className="flex items-center gap-3 mb-6">
-              <User size={18} className="text-gray-400" />
-              <h2 className="text-lg font-heading font-semibold text-slate-800">Profile</h2>
+              <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
+                <UserIcon size={20} className="text-blue-500" />
+              </div>
+              <h2 className="text-lg font-heading font-semibold text-slate-800">My Profile</h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {[
-                { label: "Full Name", placeholder: "Your Name", type: "text" },
-                { label: "Email", placeholder: "you@email.com", type: "email" },
-                { label: "Phone", placeholder: "+91 XXXXX XXXXX", type: "tel" },
-                { label: "City", placeholder: "Ahmedabad", type: "text" },
-              ].map((f, i) => (
-                <div key={i} className="space-y-1.5">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">{f.label}</label>
-                  <input type={f.type} placeholder={f.placeholder}
-                    className="w-full border border-gray-200 bg-gray-50 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-50 transition-all text-slate-800" />
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide flex items-center gap-1.5"><UserIcon size={12}/> Full Name</label>
+                <div className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-4 py-3 text-sm text-slate-700 font-medium">
+                  {user?.name || "—"}
                 </div>
-              ))}
+              </div>
+              
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide flex items-center gap-1.5"><Mail size={12}/> Email Address</label>
+                <div className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-4 py-3 text-sm text-slate-700 font-medium truncate">
+                  {user?.email || "—"}
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide flex items-center gap-1.5"><Building2 size={12}/> University / College</label>
+                <div className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-4 py-3 text-sm text-slate-700 font-medium truncate">
+                  {user?.college || "—"}
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide flex items-center gap-1.5"><UserIcon size={12}/> Role Category</label>
+                <div className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-4 py-3 text-sm text-slate-700 font-medium capitalize">
+                  {user?.category || user?.role || "—"}
+                </div>
+              </div>
             </div>
-            <button className="mt-5 px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl text-sm transition-all hover:-translate-y-0.5 shadow-md shadow-blue-100">
-              Save Changes
-            </button>
+            <p className="text-xs text-amber-600 bg-amber-50 border border-amber-100 rounded-xl px-3 py-2 mt-5 font-medium">
+              Profile details are locked after registration to prevent fraud. Contact admin to update them.
+            </p>
           </div>
 
-          <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm">
+          <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm opacity-60">
             <div className="flex items-center gap-3 mb-6">
               <Lock size={18} className="text-gray-400" />
-              <h2 className="text-lg font-heading font-semibold text-slate-800">Change Password</h2>
+              <h2 className="text-lg font-heading font-semibold text-slate-800">Change Password (Coming Soon)</h2>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-4 pointer-events-none">
               {["Current Password", "New Password", "Confirm New Password"].map((label, i) => (
                 <div key={i} className="space-y-1.5">
                   <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">{label}</label>
-                  <input type="password" placeholder="••••••••"
-                    className="w-full border border-gray-200 bg-gray-50 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-50 transition-all" />
+                  <input type="password" placeholder="••••••••" disabled
+                    className="w-full border border-gray-200 bg-gray-50 rounded-2xl px-4 py-3 text-sm text-gray-400" />
                 </div>
               ))}
-              <button className="px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-2xl text-sm transition-all">
+              <button disabled className="px-6 py-2.5 bg-gray-200 text-gray-400 font-semibold rounded-2xl text-sm">
                 Update Password
               </button>
             </div>

@@ -1,5 +1,15 @@
 const mongoose = require("mongoose");
 
+// Generate a random 8-char uppercase invite code
+function generateInviteCode() {
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let code = "";
+  for (let i = 0; i < 8; i++) {
+    code += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return code;
+}
+
 const teamSchema = new mongoose.Schema(
   {
     teamName: { type: String, required: true },
@@ -7,30 +17,36 @@ const teamSchema = new mongoose.Schema(
     eventId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Event",
-      required: true
+    },
+    themeId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Theme",
     },
     leaderId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true
+      required: true,
     },
-    memberIds: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
-    }],
+    memberIds: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    inviteCode: {
+      type: String,
+      unique: true,
+      default: generateInviteCode,
+    },
+    maxMembers: { type: Number, default: 4 },
     approvalStatus: {
       type: String,
       enum: ["pending", "approved", "rejected"],
-      default: "pending"
+      default: "pending",
     },
     universityId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "University"
+      ref: "University",
     },
     mentorId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
-    }
+      ref: "User",
+    },
   },
   { timestamps: true }
 );
