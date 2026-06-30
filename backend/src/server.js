@@ -1,3 +1,7 @@
+/**
+ * Project MSME - Backend API
+ * Developed and Maintained by Bhavin
+ */
 require("dotenv").config();
 
 const express = require("express");

@@ -1,3 +1,7 @@
+/**
+ * Project MSME - Admin Portal
+ * Developed and Maintained by Bhavin
+ */
 import { BrowserRouter, Routes, Route, NavLink, Navigate, useNavigate } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Companies from "./pages/Companies";

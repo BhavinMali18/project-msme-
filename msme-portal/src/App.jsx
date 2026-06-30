@@ -1,3 +1,7 @@
+/**
+ * Project MSME - Company Portal
+ * Developed and Maintained by Bhavin
+ */
 import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import ProtectedRoute from "./routes/ProtectedRoute";
