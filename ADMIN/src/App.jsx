@@ -10,6 +10,7 @@ import RubricBuilder from "./pages/RubricBuilder";
 import JuryAssignment from "./pages/JuryAssignment";
 import ThemeManager from "./pages/ThemeManager";
 import DepartmentBuilder from "./pages/DepartmentBuilder";
+import Universities from "./pages/Universities";
 import Login from "./pages/Login";
 import { LayoutDashboard, Building2, Users, LogOut, Sliders, UserCheck, Palette, LayoutList } from "lucide-react";
 
@@ -40,6 +41,9 @@ const AdminLayout = () => {
           <NavLink to="/companies" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
             <Building2 size={20} /> MSME Companies
           </NavLink>
+          <NavLink to="/universities" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+            <Building2 size={20} /> Universities
+          </NavLink>
           <NavLink to="/participants" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
             <Users size={20} /> Participants
           </NavLink>
@@ -66,6 +70,7 @@ const AdminLayout = () => {
         <Routes>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/companies" element={<Companies />} />
+          <Route path="/universities" element={<Universities />} />
           <Route path="/participants" element={<Participants />} />
           <Route path="/themes" element={<ThemeManager />} />
           <Route path="/departments" element={<DepartmentBuilder />} />

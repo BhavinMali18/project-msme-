@@ -1,8 +1,10 @@
 const User = require("../models/User");
 const Company = require("../models/Company");
+const University = require("../models/University");
 const QuestionnaireResponse = require("../models/QuestionnaireResponse");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+
 
 exports.getCompanies = async (req, res) => {
   try {
@@ -314,3 +316,137 @@ exports.updateProfile = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// Register a student (must provide valid, approved universityId)
+exports.registerStudent = async (req, res) => {
+  try {
+    const {
+      name, email, phone, password,
+      universityId, studentId, department, year, gender, city, state
+    } = req.body;
+
+    if (!name || !email || !password || !universityId) {
+      return res.status(400).json({ message: "Name, email, password, and university are required" });
+    }
+
+    // Verify university exists and is approved
+    const university = await University.findById(universityId);
+    if (!university) {
+      return res.status(400).json({ message: "Selected university not found" });
+    }
+    if (university.approvalStatus !== "approved") {
+      return res.status(400).json({ message: "Selected university is not yet approved for this hackathon" });
+    }
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email is already registered" });
+    }
+
+    const hash = await bcrypt.hash(password, 10);
+    const user = await User.create({
+      name, email, phone, password: hash,
+      role: "participant",
+      universityId,
+      studentId,
+      college: university.name,
+      department,
+      category: "student",
+      city, state,
+      approvalStatus: "approved" // auto-approve students
+    });
+
+    // Increment university student count
+    await University.findByIdAndUpdate(universityId, { $inc: { totalStudents: 1 } });
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+
+    res.status(201).json({
+      success: true,
+      token,
+      user: {
+        _id: user._id, name: user.name, email: user.email,
+        role: user.role, universityId: user.universityId,
+        college: user.college, category: user.category
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// Register a university admin account
+exports.registerUniversity = async (req, res) => {
+  try {
+    const {
+      universityName, city, state, websiteUrl,
+      contactEmail, contactPhone,
+      adminName, adminEmail, adminPassword
+    } = req.body;
+
+    if (!universityName || !contactEmail || !adminName || !adminEmail || !adminPassword || !city) {
+      return res.status(400).json({ message: "University name, city, contact email, and admin details are required" });
+    }
+
+    // Check if university already registered
+    const existingUni = await University.findOne({
+      name: { $regex: new RegExp("^" + universityName.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&") + "$", "i") }
+    });
+    if (existingUni) {
+      return res.status(400).json({ message: "This university is already registered in the system" });
+    }
+
+    // Check admin email
+    const existingAdmin = await User.findOne({ email: adminEmail });
+    if (existingAdmin) {
+      return res.status(400).json({ message: "Admin email is already registered" });
+    }
+
+    // Check if it's a known university (for display purposes)
+    const knownList = University.KNOWN_UNIVERSITIES || [];
+    const isKnown = knownList.some(u => u.toLowerCase() === universityName.toLowerCase());
+
+    // Create university record (pending admin approval)
+    const university = await University.create({
+      name: universityName,
+      city,
+      state: state || "Gujarat",
+      websiteUrl,
+      contactEmail,
+      contactPhone,
+      isKnownUniversity: isKnown,
+      approvalStatus: isKnown ? "pending" : "pending" // all go through approval
+    });
+
+    // Create university admin user
+    const hash = await bcrypt.hash(adminPassword, 10);
+    const adminUser = await User.create({
+      name: adminName,
+      email: adminEmail,
+      password: hash,
+      role: "university",
+      universityId: university._id,
+      approvalStatus: "approved"
+    });
+
+    // Link admin to university
+    await University.findByIdAndUpdate(university._id, { adminUserId: adminUser._id });
+
+    const token = jwt.sign({ id: adminUser._id }, process.env.JWT_SECRET);
+
+    res.status(201).json({
+      success: true,
+      token,
+      user: {
+        _id: adminUser._id, name: adminUser.name, email: adminUser.email,
+        role: adminUser.role, universityId: adminUser.universityId
+      },
+      university: {
+        _id: university._id, name: university.name,
+        approvalStatus: university.approvalStatus, isKnownUniversity: university.isKnownUniversity
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};

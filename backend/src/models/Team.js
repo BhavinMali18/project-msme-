@@ -22,6 +22,14 @@ const teamSchema = new mongoose.Schema(
       type: String,
       enum: ["pending", "approved", "rejected"],
       default: "pending"
+    },
+    universityId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "University"
+    },
+    mentorId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
     }
   },
   { timestamps: true }

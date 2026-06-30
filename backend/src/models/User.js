@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema(
 
     role: {
       type: String,
-      enum: ["company", "participant", "mentor", "evaluator", "admin", "superadmin", "dept_head"],
+      enum: ["company", "participant", "mentor", "evaluator", "admin", "superadmin", "dept_head", "university"],
       default: "participant",
     },
 
@@ -58,6 +58,14 @@ const userSchema = new mongoose.Schema(
     college: String,
     linkedinUrl: String,
     resumeUrl: String,
+
+    // University module fields
+    universityId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "University"
+    },
+    studentId: { type: String }, // enrollment/ID number for students
+    employeeId: { type: String }, // employee ID for mentors added by university
 
     approvalStatus: {
       type: String,
