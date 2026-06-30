@@ -8,49 +8,51 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
 
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy
+        uses: appleboy/ssh-action@v1.2.0
+
         with:
-          host: ${{ secrets.HOSTINGER_HOST }}
-          username: ${{ secrets.HOSTINGER_USERNAME }}
-          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT }}
+
           script: |
-            cd /var/www/html/project-msme-
-            
-            # Pull latest changes from git
-            git pull origin main
-            
-            # 1. Build Backend
+            cd /var/www/html/msme/project-msme-
+
+            git fetch origin
+            git reset --hard origin/main
+
+            npm install
+
+            # Backend
             cd backend
             npm install
-            pm2 restart backend || pm2 start src/server.js --name backend
             cd ..
-            
-            # 2. Build MSME Portal
+
+            # MSME Portal
             cd msme-portal
             npm install
             npm run build
-            # Assuming Nginx serves from /var/www/html/project-msme-/msme-portal/dist
             cd ..
-            
-            # 3. Build Participant Portal
-            cd participante-portal
-            npm install
-            npm run build
-            pm2 restart participant-portal || pm2 start npm --name participant-portal -- start
-            cd ..
-            
-            # 4. Build Admin Portal
+
+            # Admin
             cd ADMIN
             npm install
             npm run build
-            # Assuming Nginx serves from /var/www/html/project-msme-/ADMIN/dist
             cd ..
-            
-            # Save PM2 configuration
+
+            # Participant Portal
+            cd participante-portal
+            npm install
+            npm run build
+            cd ..
+
+            pm2 restart msme-api
+            pm2 restart participant-portal
+
             pm2 save
